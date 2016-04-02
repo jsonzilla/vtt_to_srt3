@@ -3,6 +3,9 @@
 # vtt-to-srt.py
 # (c) Jansen A. Simanullang
 # 02.04.2016 13:39
+# LAST CHANGE:
+# 02.04.2016 16:56
+# recursively visit subdirectories
 #---------------------------------------
 # usage: python vtt-to-srt.py
 #
@@ -10,39 +13,17 @@
 # python vtt-to-srt.py
 #
 # features:
-# convert all vtt files in a directory
-# to srt subtitle format
+# check a directory and all its subdirectories
+# convert all vtt files to srt subtitle format
 #
 # real world needs:
 # converting Coursera's vtt subtitle
 
 
-import os, re
+import os, re, sys
+from stat import *
 
 
-def fileFilter(path, fileExtension):
-
-	dirContents  = os.listdir(path)
-	selectedFiles = []
-	
-	count = 0
-
-	for filename in dirContents:
-
-		if fileExtension in filename:
-		
-			print filename.strip()
-			
-			count = count + 1
-			
-			selectedFiles.append(path+filename)
-			
-	print "\nThere are ", count, fileExtension + " files\n\n"
-
-	return selectedFiles
-	
-
-	
 def convertContent(fileContents):
 
 	replacement = re.sub(r'([\d]+)\.([\d]+)', r'\1,\2', fileContents)
@@ -102,16 +83,45 @@ def vtt_to_srt(strNamaFile):
 	
 	
 	
-def main():
+def walktree(TopMostPath, callback):
 
-	# just edit the path below
-	path = 'C:\Users\developer\Videos\Virtual Universities\Coursera\Using Databases with Python\\'
+    '''recursively descend the directory tree rooted at TopMostPath,
+       calling the callback function for each regular file'''
 
-	selectedFiles = fileFilter(path, ".vtt")
-
-	for files in selectedFiles:
-		
-		vtt_to_srt(files)
-
+    for f in os.listdir(TopMostPath):
 	
-main()
+        pathname = os.path.join(TopMostPath, f)
+        mode = os.stat(pathname)[ST_MODE]
+		
+        if S_ISDIR(mode):
+		
+            # It's a directory, recurse into it
+            walktree(pathname, callback)
+			
+        elif S_ISREG(mode):
+		
+            # It's a file, call the callback function
+            callback(pathname)
+			
+        else:
+		
+            # Unknown file type, print a message
+            print 'Skipping %s' % pathname
+
+			
+
+def convertVTTtoSRT(file):
+	
+	if '.vtt' in file:
+	
+		vtt_to_srt(file)
+		
+def main():
+	
+	#just edit the path below
+
+	TopMostPath = 'C:\Users\developer\Videos\Virtual Universities\Coursera'
+
+	walktree(TopMostPath, convertVTTtoSRT)
+	
+main()	
