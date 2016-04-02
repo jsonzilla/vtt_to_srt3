@@ -1,2 +1,4 @@
 # vtt-to-srt.py
-python script to convert all vtt files in a directory and all its subdirectories to srt subtitle format
+useful python script
+## convert all vtt files to srt subtitle format
+* in a directory and all its subdirectories
