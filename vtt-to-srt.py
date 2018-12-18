@@ -19,8 +19,7 @@
 # real world needs:
 # converting Coursera's vtt subtitle
 
-
-import os, re, sys
+import os, re, sys, io
 from stat import *
 
 
@@ -59,11 +58,11 @@ def fileCreate(strNamaFile, strData):
 	
 def readTextFile(strNamaFile):
 
-	f = open(strNamaFile, "r")
+	f = open(strNamaFile, mode='r')
 	
 	print "file being read: " + strNamaFile + "\n"
 	
-	return f.read().decode("windows-1252").encode('ascii', 'ignore')
+	return f.read().decode("utf8").encode('ascii', 'ignore')
 	
 
 
@@ -116,12 +115,14 @@ def convertVTTtoSRT(file):
 	
 		vtt_to_srt(file)
 		
-def main():
+def vtt_2_srt(directory):
 	
 	#just edit the path below
 
-	TopMostPath = 'C:\Users\developer\Videos\Virtual Universities\Coursera'
+	TopMostPath = directory
 
 	walktree(TopMostPath, convertVTTtoSRT)
 	
-main()	
+if __name__ == '__main__':
+    vtt_2_srt(sys.argv[1])
+
