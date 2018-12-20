@@ -7,7 +7,7 @@ useful python script
 Usage from terminal:
 ----------
 
-vtt_to_srt.py pathname [-r]
+pyhton vtt_to_srt.py pathname [-r]
 	
 pathname - a file or directory with files to be converted 
 
