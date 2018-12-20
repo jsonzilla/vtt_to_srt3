@@ -2,22 +2,25 @@
 #---------------------------------------
 # vtt-to-srt.py
 # (c) Jansen A. Simanullang
-# 02.04.2016 13:39
-# LAST CHANGE:
-# 02.04.2016 16:56
-# recursively visit subdirectories
 #---------------------------------------
-# usage: python vtt-to-srt.py
+# Usage: 
+#
+#	vtt_to_srt.py pathname [-r]
+#	
+#	pathname - a file or directory with files to be converted'
+#
+#	-r       - walk path recursively
 #
 # example:
-# python vtt-to-srt.py
+# python vtt_to_srt.py
 #
 # features:
+# convert file individually
 # check a directory and all its subdirectories
 # convert all vtt files to srt subtitle format
 #
-# real world needs:
-# converting Coursera's vtt subtitle
+# real world cases:
+# convert vtt web subtitles
 
 import os, re, sys, io
 from stat import *
@@ -100,29 +103,72 @@ def walktree(TopMostPath, callback):
         elif S_ISREG(mode):
 		
             # It's a file, call the callback function
-            callback(pathname)
+            callback(pathname, rec)
 			
         else:
 		
             # Unknown file type, print a message
             print 'Skipping %s' % pathname
 
-			
 
-def convertVTTtoSRT(file):
-	
-	if '.vtt' in file:
-	
-		vtt_to_srt(file)
+def walkdir(TopMostPath, callback):
+
+	for f in os.listdir(TopMostPath):
+		pathname = os.path.join(TopMostPath, f)
 		
-def vtt_2_srt(directory):
-	
-	#just edit the path below
+		if not os.path.isdir(pathname):
+			
+			# It's a file, call the callback function
+			callback(pathname)
 
+
+def convertVTTtoSRT(f):
+	
+	if '.vtt' in f:
+	
+		vtt_to_srt(f)
+
+		
+def vtts_to_srt(directory, rec = False):
+	
 	TopMostPath = directory
 
-	walktree(TopMostPath, convertVTTtoSRT)
+	if rec:
+
+		walktree(TopMostPath, convertVTTtoSRT)
+
+	else:
+
+		walkdir(TopMostPath, convertVTTtoSRT)
+
+
+def print_usage():
+
+	print '\nUsage:\tvtt_to_srt.py pathname [-r]\n'
+	
+	print '\tpathname\t- a file or directory with files to be converted'
+
+	print '\t-r\t\t- walk path recursively\n'
+
 	
 if __name__ == '__main__':
-    vtt_2_srt(sys.argv[1])
+
+
+	if len(sys.argv) < 2 or sys.argv[1] == '--help' or not os.path.exists(sys.argv[1]):
+
+		print_usage()
+
+		exit()
+
+	path = sys.argv[1]
+
+	rec = True if len(sys.argv) > 2 and sys.argv[2] == '-r' else False
+
+	if os.path.isdir(path):
+
+		vtts_to_srt(path, rec)
+
+	else:
+
+		vtt_to_srt(path)
 
