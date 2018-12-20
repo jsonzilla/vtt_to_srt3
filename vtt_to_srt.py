@@ -1,11 +1,11 @@
 #!/usr/bin/python
 #---------------------------------------
-# vtt-to-srt.py
+# vtt_to_srt.py
 # (c) Jansen A. Simanullang
 #---------------------------------------
 # Usage: 
 #
-#	vtt_to_srt.py pathname [-r]
+#	python vtt_to_srt.py pathname [-r]
 #	
 #	pathname - a file or directory with files to be converted'
 #
