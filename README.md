@@ -9,8 +9,8 @@ Usage from terminal:
 
 vtt_to_srt.py pathname [-r]
 	
-|pathname | - a file or directory with files to be converted |
-|-r       | - walk path recursively                          |
+pathname - a file or directory with files to be converted 
+-r       - walk path recursively                          
 
 Usage as a lib:
 ----------
