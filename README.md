@@ -26,7 +26,5 @@ Usage as a lib:
 		# recursively convert all vtt files in directory
 		
 		from vtt_to_srt import vtts_to_srt
-		rec = True
 		path = '/path/to/directory'
-		vtts_to_srt(path, rec)
-
+		vtts_to_srt(path, rec = True)
