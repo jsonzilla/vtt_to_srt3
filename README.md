@@ -7,11 +7,11 @@ useful python script
 Usage from terminal:
 ----------
 
-pyhton vtt_to_srt.py pathname [-r]
-	
-pathname - a file or directory with files to be converted 
-
--r       - walk path recursively                          
+		python vtt_to_srt.py pathname [-r]
+		
+		pathname - a file or directory with files to be converted 
+		
+		-r       - walk path recursively                          
 
 Usage as a lib:
 ----------
