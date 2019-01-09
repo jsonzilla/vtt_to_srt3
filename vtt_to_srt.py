@@ -28,11 +28,19 @@ from stat import *
 
 def convertContent(fileContents):
 
-	replacement = re.sub(r'([\d]+)\.([\d]+)', r'\1,\2', fileContents)
-	replacement = re.sub(r'WEBVTT\n\n', '', replacement)
-	replacement = re.sub(r'^\d+\n', '', replacement)
-	replacement = re.sub(r'\n\d+\n', '\n', replacement)
-
+	replacement = re.sub(r'(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?: \w+:[\w\%\d:]+)*\n', r'\1,\2 --> \3,\4\n', fileContents)
+	replacement = re.sub(r'(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?: \w+:[\w\%\d:]+)*\n', r'\1,\2 --> \3,\4\n', replacement)
+	replacement = re.sub(r'WEBVTT\n', '', replacement)
+	replacement = re.sub(r'Kind:[ \w]+\n', '', replacement)
+	replacement = re.sub(r'Language:[ \w]+\n', '', replacement)
+	#replacement = re.sub(r'^\d+\n', '', replacement)
+	#replacement = re.sub(r'\n\d+\n', '\n', replacement)
+	replacement = re.sub(r'<c[.\w\d]*>', '', replacement)
+	replacement = re.sub(r'</c>', '', replacement)
+	replacement = re.sub(r'<\d\d:\d\d:\d\d.\d\d\d>', '', replacement)
+	replacement = re.sub(r'::cue\([.\w\d]+\)[ ]*{[.,:;\(\) \w\d]+\n }\n', '', replacement)
+	replacement = re.sub(r'Style:\n##\n', '', replacement)
+	
 	return replacement
 	
 
@@ -171,4 +179,5 @@ if __name__ == '__main__':
 	else:
 
 		vtt_to_srt(path)
+
 
