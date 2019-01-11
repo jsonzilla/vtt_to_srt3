@@ -19,10 +19,9 @@ Usage from terminal:
 		
 		-r       - walk path recursively                          
 
-As a lib:
-----------
 
-Usage:
+Usage as a lib:
+----------
 
 		# convert vtt file
 		
