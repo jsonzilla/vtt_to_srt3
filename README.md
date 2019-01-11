@@ -2,7 +2,7 @@
 
 useful python script for Python 2.7
 
-## convert all vtt files to srt subtitle format
+## convert vtt files to srt subtitle format
 
 
 Installation:
