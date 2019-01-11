@@ -5,14 +5,14 @@
 #---------------------------------------
 # Usage: 
 #
-#	python vtt_to_srt.py pathname [-r]
+#	vtt_to_srt.py pathname [-r]
 #	
 #	pathname - a file or directory with files to be converted'
 #
 #	-r       - walk path recursively
 #
 # example:
-# python vtt_to_srt.py
+# vtt_to_srt.py subtitle.vtt
 #
 # features:
 # convert file individually

@@ -1,20 +1,28 @@
 # vtt_to_srt.py
 
-useful python script
+useful python script for Python 2.7
 
 ## convert all vtt files to srt subtitle format
+
+
+Installation:
+----------
+
+		pip install --user vtt_to_srt
 
 Usage from terminal:
 ----------
 
-		python vtt_to_srt.py pathname [-r]
+		vtt_to_srt.py pathname [-r]
 		
 		pathname - a file or directory with files to be converted 
 		
 		-r       - walk path recursively                          
 
-Usage as a lib:
+As a lib:
 ----------
+
+Usage:
 
 		# convert vtt file
 		
@@ -28,3 +36,4 @@ Usage as a lib:
 		from vtt_to_srt import vtts_to_srt
 		path = '/path/to/directory'
 		vtts_to_srt(path, rec = True)
+
