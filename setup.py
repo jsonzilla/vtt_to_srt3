@@ -17,7 +17,7 @@ setuptools.setup(
      url="https://github.com/jansenicus/vtt-to-srt.py",
      packages=setuptools.find_packages(),
      classifiers=[
-         "Programming Language :: Python :: 2.7",
+         "Programming Language :: Python :: 3.7",
          "Operating System :: OS Independent",
      ],
  )
