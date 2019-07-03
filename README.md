@@ -13,7 +13,7 @@ Installation:
 Usage from terminal:
 ----------
 
-		python vtt_to_srt.py3 pathname [-r]
+		python vtt_to_srt.py pathname [-r]
 		
 		pathname - a file or directory with files to be converted 
 		

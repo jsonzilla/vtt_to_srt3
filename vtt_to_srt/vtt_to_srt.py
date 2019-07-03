@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # ---------------------------------------
 # vtt_to_srt.py
-# (c) Jansen A. Simanullang
+# (c) Jansen A. Simanullang / Jeison Cardoso
 # ---------------------------------------
 # Usage: 
 #
