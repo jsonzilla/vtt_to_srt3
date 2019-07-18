@@ -8,12 +8,12 @@ useful python script for Python 3.7 (you can get version for Python 2.7 here: ht
 Installation:
 ----------
 
-		pip install --user vtt_to_srt3
+		pip install vtt_to_srt3
 
 Usage from terminal:
 ----------
 
-		python vtt_to_srt.py pathname [-r]
+		python -m vtt_to_srt pathname [-r]
 		
 		pathname - a file or directory with files to be converted 
 		
