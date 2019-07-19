@@ -4,15 +4,13 @@
 import os
 import re
 import sys
-import io
 from stat import *
-from typing import TextIO
 
 
 def convert_content(file_contents):
     """Convert convert of vtt file to str format
 
-       Keyword arguments:    
+       Keyword arguments:
        file_contents
        """
     replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:]+)*\n", r"\1,\2 --> \3,\4\n", file_contents)
@@ -30,9 +28,9 @@ def convert_content(file_contents):
 
 
 def file_create(str_name_file, str_data):
-    """Create a file with some data 
+    """Create a file with some data
 
-       Keyword arguments:    
+       Keyword arguments:
        str_name_file -- filename pat
        str_data -- dat to write
        """
@@ -54,7 +52,7 @@ def file_create(str_name_file, str_data):
 def read_text_file(str_name_file):
     """Read a file text
 
-       Keyword arguments:    
+       Keyword arguments:
        str_name_file -- filename pat
        """
     f = open(str_name_file, mode="r")
@@ -65,7 +63,7 @@ def read_text_file(str_name_file):
 def vtt_to_srt(str_name_file):
     """Convert vtt file to a srt file
 
-       Keyword arguments:    
+       Keyword arguments:
        str_name_file -- filename path
        """
     file_contents: str = read_text_file(str_name_file)
@@ -77,10 +75,10 @@ def vtt_to_srt(str_name_file):
 
 
 def walk_tree(top_most_path, callback):
-    """Recursively descend the directory tree rooted at top_most_path, 
-       calling the callback function for each regular file 
+    """Recursively descend the directory tree rooted at top_most_path,
+       calling the callback function for each regular file
 
-       Keyword arguments:        
+       Keyword arguments:
        top_most_path -- parent directory
        callback -- function to call
        """
@@ -101,7 +99,7 @@ def walk_tree(top_most_path, callback):
 def walk_dir(top_most_path, callback):
     """Walk a directory
 
-       Keyword arguments:        
+       Keyword arguments:
        top_most_path -- parent directory
        callback -- function to call
        """
@@ -123,7 +121,7 @@ def convert_vtt_to_str(f):
 
 
 def vtts_to_srt(directory, rec = False):
-    """Walk down directory seaching for vtt files 
+    """Walk down directory seaching for vtt files
 
        Keyword arguments:
        directory -- path to search
