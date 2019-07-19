@@ -30,7 +30,7 @@ from stat import *
 from typing import TextIO
 
 
-def convert_content(file_contents: str):
+def convert_content(file_contents):
 	"""Convert convert of vtt file to str format
 	
 		Keyword arguments:	
