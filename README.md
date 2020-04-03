@@ -1,5 +1,7 @@
 # vtt_to_srt.py
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2d1b59a173374dd0a3cdaef54d109079)](https://www.codacy.com/manual/0um/vtt-to-srt.py?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=amorvincitomnia/vtt-to-srt.py&amp;utm_campaign=Badge_Grade)
+
 Convert vtt files to srt subtitle format
 
 ## Note
