@@ -12,7 +12,7 @@ setuptools.setup(
      description="vtt to srt subtitles converter package",
      long_description=long_description,
      long_description_content_type="text/markdown",
-     url="https://github.com/0um/vtt-to-srt.py",
+     url="https://github.com/ amorvincitomnia/vtt-to-srt.py",
      packages=['vtt_to_srt'],
      classifiers=[
          "Programming Language :: Python :: 3.7",
