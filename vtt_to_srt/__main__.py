@@ -6,7 +6,6 @@ import re
 import sys
 from stat import *
 
-
 def convert_content(file_contents):
     """Convert convert of vtt file to str format
 
@@ -90,7 +89,7 @@ def walk_tree(top_most_path, callback):
             walk_tree(pathname, callback)
         elif S_ISREG(mode):
             # It"s a file, call the callback function
-            callback(pathname, rec)
+            callback(pathname)
         else:
             # Unknown file type, print a message
             print("Skipping %s" % pathname)
