@@ -6,8 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='vtt_to_srt3',
-     version='0.1.8.4',
-     scripts=['vtt_to_srt.py'] ,
+     version='0.1.8.5',
      author="Jeison Cardoso",
      author_email="cardoso.jeison@gmail.com",
      description="vtt to srt subtitles converter package",
@@ -19,4 +18,10 @@ setuptools.setup(
          "Programming Language :: Python :: 3.7",
          "Operating System :: OS Independent",
      ],
+     entry_points={
+        "console_scripts": [
+            "vtt_to_srt=vtt_to_srt.vtt_to_srt:main",
+        ]
+    }
+
  )
