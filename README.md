@@ -10,6 +10,10 @@ For Python 3.7 [you can get version for Python 2.7 here](https://github.com/jans
 pip install vtt_to_srt3
 ```
 
+```cmd
+python -m pip install vtt_to_srt3
+```
+
 ## Usage from terminal
 
 ```shell
