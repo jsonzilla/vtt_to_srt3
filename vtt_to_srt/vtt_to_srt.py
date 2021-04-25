@@ -37,7 +37,7 @@ def file_create(str_name_file, str_data):
     # file_create(str_name_file, str_data)
     # create a text file
     try:
-        f = open(str_name_file, "w")
+        f = open(str_name_file, "w", encoding='utf-8')
         f.writelines(str(str_data))
         f.close()
     except IOError:
@@ -54,7 +54,7 @@ def read_text_file(str_name_file):
        Keyword arguments:
        str_name_file -- filename pat
        """
-    f = open(str_name_file, mode="r")
+    f = open(str_name_file, mode="r", encoding='utf-8')
     print("file being read: " + str_name_file + "\n")
     return f.read()
 
