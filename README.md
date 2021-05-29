@@ -28,14 +28,14 @@ pathname - a file or directory with files to be converted
 
 Convert vtt file
 ```shell
-from vtt_to_srt import vtt_to_srt
+from vtt_to_srt.vtt_to_srt import vtt_to_srt
 path = '/path/to/file.vtt'
 vtt_to_srt(path)
 ```		
 		
 Recursively convert all vtt files in directory
 ```shell
-from vtt_to_srt import vtts_to_srt
+from vtt_to_srt.vtt_to_srt import vtt_to_srt
 path = '/path/to/directory'
 vtts_to_srt(path, rec = True)
 ```
