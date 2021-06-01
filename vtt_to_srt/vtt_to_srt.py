@@ -23,7 +23,27 @@ def convert_content(file_contents):
     replacement = re.sub(r"<\d\d:\d\d:\d\d.\d\d\d>", "", replacement)
     replacement = re.sub(r"::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n", "", replacement)
     replacement = re.sub(r"Style:\n##\n", "", replacement)
+    replacement = add_sequence_numbers(replacement)
     return replacement
+
+
+def add_sequence_numbers(contents):
+    """Adds sequence numbers to subtitle contents and returns new subtitle contents
+
+       Keyword arguments:
+       contents
+       """
+    output = ''
+    lines = contents.split(os.linesep)
+    i = 1
+    for line in lines:
+        if '-->' in line:
+            output += str(i)
+            output += os.linesep
+            i += 1
+        output += line
+        output += os.linesep
+    return output
 
 
 def file_create(str_name_file, str_data):
