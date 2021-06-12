@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 # Jansen A. Simanullang / Jeison Cardoso
 
 import os
