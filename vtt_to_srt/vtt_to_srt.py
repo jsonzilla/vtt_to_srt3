@@ -6,18 +6,30 @@ import re
 import sys
 from stat import *
 
-def convert_content(file_contents):
-    """Convert convert of vtt file to str format
+def convert_header(contents):
+    """Convert of vtt header to str format
 
        Keyword arguments:
-       file_contents
+       contents
        """
-    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:,.]+)*\n", r"\1,\2 --> \3,\4\n", file_contents)
-    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:,.]+)*\n", r"00:\1,\2 --> 00:\3,\4\n", replacement)
-    replacement = re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:,.]+)*\n", r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
-    replacement = re.sub(r"WEBVTT\n", "", replacement)
+    replacement = re.sub(r"WEBVTT\n", "", contents)
     replacement = re.sub(r"Kind:[ \-\w]+\n", "", replacement)
     replacement = re.sub(r"Language:[ \-\w]+\n", "", replacement)
+    return replacement
+
+def convert_timestamp(contents):
+    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"\1,\2 --> \3,\4\n", contents)
+    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"00:\1,\2 --> 00:\3,\4\n", replacement)
+    return re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
+
+def convert_content(contents):
+    """Convert content of vtt file to str format
+
+       Keyword arguments:
+       contents
+       """    
+    replacement = convert_timestamp(contents)
+    replacement = convert_header(replacement)
     replacement = re.sub(r"<c[.\w\d]*>", "", replacement)
     replacement = re.sub(r"</c>", "", replacement)
     replacement = re.sub(r"<\d\d:\d\d:\d\d.\d\d\d>", "", replacement)
@@ -26,6 +38,8 @@ def convert_content(file_contents):
     replacement = add_sequence_numbers(replacement)
     return replacement
 
+def timestamp_line(content):
+    return re.match(r"((\d\d:){0,3}\d\d),(\d{0,3}) --> ((\d\d:){0,2}\d\d),(\d{0,3})", content) != None
 
 def add_sequence_numbers(contents):
     """Adds sequence numbers to subtitle contents and returns new subtitle contents
@@ -35,14 +49,13 @@ def add_sequence_numbers(contents):
        """
     output = ''
     lines = contents.split(os.linesep)
+
     i = 1
     for line in lines:
-        if '-->' in line:
-            output += str(i)
-            output += os.linesep
+        if timestamp_line(line):
+            output += str(i) + os.linesep
             i += 1
-        output += line
-        output += os.linesep
+        output += line + os.linesep
     return output
 
 

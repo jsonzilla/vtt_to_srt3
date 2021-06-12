@@ -37,5 +37,5 @@ Recursively convert all vtt files in directory
 ```shell
 from vtt_to_srt.vtt_to_srt import vtt_to_srt
 path = '/path/to/directory'
-vtts_to_srt(path, rec = True)
+vtt_to_srt(path, rec = True)
 ```

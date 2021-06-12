@@ -8,6 +8,7 @@ eggs/
 lib/
 lib64/
 parts/
+pytest_cache/
 sdist/
 var/
 wheels/
