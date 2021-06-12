@@ -12,9 +12,9 @@ def convert_content(file_contents):
        Keyword arguments:
        file_contents
        """
-    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:]+)*\n", r"\1,\2 --> \3,\4\n", file_contents)
-    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:]+)*\n", r"\1,\2 --> \3,\4\n", replacement)
-    replacement = re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:]+)*\n", r"\1,\2 --> \3,\4\n", replacement)
+    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:,.]+)*\n", r"\1,\2 --> \3,\4\n", file_contents)
+    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:,.]+)*\n", r"00:\1,\2 --> 00:\3,\4\n", replacement)
+    replacement = re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:,.]+)*\n", r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
     replacement = re.sub(r"WEBVTT\n", "", replacement)
     replacement = re.sub(r"Kind:[ \-\w]+\n", "", replacement)
     replacement = re.sub(r"Language:[ \-\w]+\n", "", replacement)
@@ -105,10 +105,10 @@ def walk_tree(top_most_path, callback):
         pathname = os.path.join(top_most_path, f)
         mode = os.stat(pathname)[ST_MODE]
         if S_ISDIR(mode):
-            # It"s a directory, recurse into it
+            # It's a directory, recurse into it
             walk_tree(pathname, callback)
         elif S_ISREG(mode):
-            # It"s a file, call the callback function
+            # It's a file, call the callback function
             callback(pathname)
         else:
             # Unknown file type, print a message
@@ -130,7 +130,7 @@ def walk_dir(top_most_path, callback):
 
 
 def convert_vtt_to_str(f):
-    """Convert vtt fuke to string 
+    """Convert vtt file to string
 
        Keyword arguments:
        f -- file to convert
