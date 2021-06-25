@@ -18,9 +18,9 @@ def convert_header(contents):
     return replacement
 
 def convert_timestamp(contents):
-    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"\1,\2 --> \3,\4\n", contents)
-    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"00:\1,\2 --> 00:\3,\4\n", replacement)
-    return re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
+    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.,]+)*\n", r"\1,\2 --> \3,\4\n", contents)
+    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.,]+)*\n", r"00:\1,\2 --> 00:\3,\4\n", replacement)
+    return re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.,]+)*\n", r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
 
 def convert_content(contents):
     """Convert content of vtt file to str format
