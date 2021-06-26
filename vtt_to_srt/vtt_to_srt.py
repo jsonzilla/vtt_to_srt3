@@ -1,13 +1,17 @@
 ﻿#!/usr/bin/python
 # Jansen A. Simanullang / Jeison Cardoso
 
+"""Convert of vtt to srt format"""
+
 import os
 import re
 import sys
-from stat import *
+from string import Template
+from stat import S_ISDIR, ST_MODE, S_ISREG
+
 
 def convert_header(contents):
-    """Convert of vtt header to str format
+    """Convert of vtt header to srt format
 
        Keyword arguments:
        contents
@@ -17,17 +21,39 @@ def convert_header(contents):
     replacement = re.sub(r"Language:[ \-\w]+\n", "", replacement)
     return replacement
 
-def convert_timestamp(contents):
-    replacement = re.sub(r"(\d\d:\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"\1,\2 --> \3,\4\n", contents)
-    replacement = re.sub(r"(\d\d:\d\d).(\d\d\d) --> (\d\d:\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"00:\1,\2 --> 00:\3,\4\n", replacement)
-    return re.sub(r"(\d\d).(\d\d\d) --> (\d\d).(\d\d\d)(?:[ \-\w]+:[\w\%\d:.]+)*\n", r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
 
-def convert_content(contents):
-    """Convert content of vtt file to str format
+def padding_timestamp(contents):
+    """Add 00 to padding timestamp of to srt format
 
        Keyword arguments:
        contents
-       """    
+       """
+    find_srt = Template(r'$a,$b --> $a,$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n')
+    minute = r"((?:\d\d:){1}\d\d)"
+    second = r"((?:\d\d:){0}\d\d)"
+    padding_minute = find_srt.substitute(a=minute, b=r"(\d{0,3})")
+    padding_second = find_srt.substitute(a=second, b=r"(\d{0,3})")
+    replacement = re.sub(padding_minute, r"00:\1,\2 --> 00:\3,\4\n", contents)
+    return re.sub(padding_second, r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
+
+
+def convert_timestamp(contents):
+    """Convert timestamp of vtt file to srt format
+
+       Keyword arguments:
+       contents
+       """
+    find_vtt = Template(r'$a.$b --> $a.$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n')
+    all_timestamp = find_vtt.substitute(a=r"((?:\d\d:){0,2}\d\d)", b=r"(\d{0,3})")
+    return padding_timestamp(re.sub(all_timestamp, r"\1,\2 --> \3,\4\n", contents))
+
+
+def convert_content(contents):
+    """Convert content of vtt file to srt format
+
+       Keyword arguments:
+       contents
+       """
     replacement = convert_timestamp(contents)
     replacement = convert_header(replacement)
     replacement = re.sub(r"<c[.\w\d]*>", "", replacement)
@@ -39,7 +65,13 @@ def convert_content(contents):
     return replacement
 
 def timestamp_line(content):
-    return re.match(r"((\d\d:){0,3}\d\d),(\d{0,3}) --> ((\d\d:){0,2}\d\d),(\d{0,3})", content) != None
+    """Check if line is a timestamp srt format
+
+       Keyword arguments:
+       contents
+       """
+    return re.match(r"((\d\d:){2}\d\d),(\d{3}) --> ((\d\d:){2}\d\d),(\d{3})", content) is not None
+
 
 def add_sequence_numbers(contents):
     """Adds sequence numbers to subtitle contents and returns new subtitle contents
@@ -59,40 +91,37 @@ def add_sequence_numbers(contents):
     return output
 
 
-def file_create(str_name_file, str_data):
+def file_create(str_name_file: str, str_data):
     """Create a file with some data
 
        Keyword arguments:
        str_name_file -- filename pat
        str_data -- dat to write
        """
-    # --------------------------------
-    # file_create(str_name_file, str_data)
-    # create a text file
     try:
-        f = open(str_name_file, "w", encoding='utf-8')
-        f.writelines(str(str_data))
-        f.close()
+        with open(str_name_file, "w", encoding='utf-8') as file:
+            file.writelines(str(str_data))
     except IOError:
         str_name_file = str_name_file.split(os.sep)[-1]
-        f = open(str_name_file, "w")
-        f.writelines(str(str_data))
-        f.close()
+        with open(str_name_file, "w") as file:
+            file.writelines(str(str_data))
     print("file created: " + str_name_file + "\n")
 
 
-def read_text_file(str_name_file):
+def read_text_file(str_name_file: str):
     """Read a file text
 
        Keyword arguments:
        str_name_file -- filename pat
        """
-    f = open(str_name_file, mode="r", encoding='utf-8')
-    print("file being read: " + str_name_file + "\n")
-    return f.read()
+    content: str = ''
+    with open(str_name_file, mode="r", encoding='utf-8') as file:
+        print("file being read: " + str_name_file + "\n")
+        content = file.read()
+    return content
 
 
-def vtt_to_srt(str_name_file):
+def vtt_to_srt(str_name_file: str):
     """Convert vtt file to a srt file
 
        Keyword arguments:
@@ -114,8 +143,8 @@ def walk_tree(top_most_path, callback):
        top_most_path -- parent directory
        callback -- function to call
        """
-    for f in os.listdir(top_most_path):
-        pathname = os.path.join(top_most_path, f)
+    for file in os.listdir(top_most_path):
+        pathname = os.path.join(top_most_path, file)
         mode = os.stat(pathname)[ST_MODE]
         if S_ISDIR(mode):
             # It's a directory, recurse into it
@@ -135,21 +164,21 @@ def walk_dir(top_most_path, callback):
        top_most_path -- parent directory
        callback -- function to call
        """
-    for f in os.listdir(top_most_path):
-        pathname = os.path.join(top_most_path, f)
+    for file in os.listdir(top_most_path):
+        pathname = os.path.join(top_most_path, file)
         if not os.path.isdir(pathname):
             # It"s a file, call the callback function
             callback(pathname)
 
 
-def convert_vtt_to_str(f):
+def convert_vtt_to_str(file):
     """Convert vtt file to string
 
        Keyword arguments:
        f -- file to convert
        """
-    if ".vtt" in f:
-        vtt_to_srt(f)
+    if ".vtt" in file:
+        vtt_to_srt(file)
 
 
 def vtts_to_srt(directory, rec = False):
@@ -172,18 +201,24 @@ def print_usage():
     print("\tpathname\t- a file or directory with files to be converted")
     print("\t-r\t\t- walk path recursively\n")
 
+
 def main():
+    """main
+
+       Keyword arguments:
+        pathname - a file or directory with files to be converted
+        -r walk path recursively
+       """
     if len(sys.argv) < 2 or sys.argv[1] == "--help" or not os.path.exists(sys.argv[1]):
         print_usage()
-        exit()
+        sys.exit()
     path = sys.argv[1]
-    rec = True if len(sys.argv) > 2 and sys.argv[2] == "-r" else False
+    rec = bool(len(sys.argv) > 2 and sys.argv[2] == "-r")
     if os.path.isdir(path):
         vtts_to_srt(path, rec)
     else:
-        vtt_to_srt(path)	
+        vtt_to_srt(path)
 
 
 if __name__ == "__main__":
-	main()
-
+    main()
