@@ -6,13 +6,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='vtt_to_srt3',
-     version='0.1.8.7',
+     version='0.1.8.8',
      author="Jeison Cardoso",
      author_email="cardoso.jeison@gmail.com",
      description="vtt to srt subtitles converter package",
      long_description=long_description,
      long_description_content_type="text/markdown",
-     url="https://github.com/amorvincitomnia/vtt-to-srt.py",
+     url="https://github.com/jsonzilla/vtt-to-srt.py",
      packages=setuptools.find_packages(),
      classifiers=[
          "Programming Language :: Python :: 3.7",

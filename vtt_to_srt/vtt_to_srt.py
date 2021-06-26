@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python
+#!/usr/bin/python
 # Jansen A. Simanullang / Jeison Cardoso
 
 """Convert of vtt to srt format"""
@@ -64,6 +64,7 @@ def convert_content(contents):
     replacement = add_sequence_numbers(replacement)
     return replacement
 
+  
 def timestamp_line(content):
     """Check if line is a timestamp srt format
 
