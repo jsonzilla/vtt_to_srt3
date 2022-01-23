@@ -1,4 +1,5 @@
 # vtt_to_srt.py
+[![Build Status](https://app.travis-ci.com/jsonzilla/vtt-to-srt.py.svg?branch=master)](https://app.travis-ci.com/jsonzilla/vtt-to-srt.py)
 
 Convert vtt files to srt subtitle format
 
