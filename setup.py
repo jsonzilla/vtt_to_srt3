@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='vtt_to_srt3',
-     version='0.1.8.9',
+     version='0.1.9.0',
      author="Jeison Cardoso",
      author_email="cardoso.jeison@gmail.com",
      description="vtt to srt subtitles converter package",
