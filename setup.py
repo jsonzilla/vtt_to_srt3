@@ -6,9 +6,9 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='vtt_to_srt3',
-     version='0.1.9.0',
+     version='0.1.9.1',
      author="Jeison Cardoso",
-     author_email="cardoso.jeison@gmail.com",
+     author_email="j@jsonzilla.com",
      description="vtt to srt subtitles converter package",
      long_description=long_description,
      long_description_content_type="text/markdown",
@@ -16,6 +16,9 @@ setuptools.setup(
      packages=setuptools.find_packages(),
      classifiers=[
          "Programming Language :: Python :: 3.7",
+         "Programming Language :: Python :: 3.8",
+         "Programming Language :: Python :: 3.9",
+         "Programming Language :: Python :: 3.10",
          "Operating System :: OS Independent",
      ],
      entry_points={
