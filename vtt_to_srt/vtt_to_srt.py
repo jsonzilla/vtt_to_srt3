@@ -68,6 +68,7 @@ class VttToStr:
             r"::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n", "", replacement)
         replacement = re.sub(r"Style:\n##\n", "", replacement)
         replacement = self.add_sequence_numbers(replacement)
+
         return replacement
 
     def has_timestamp(self, content):
@@ -85,14 +86,13 @@ class VttToStr:
         contents
         """
         output = ''
-        lines = contents.split(os.linesep)
-
+        lines = contents.split('\n')
         i = 1
         for line in lines:
             if self.has_timestamp(line):
-                output += str(i) + os.linesep
+                output += str(i) + '\n'
                 i += 1
-            output += line + os.linesep
+            output += line + '\n'
         return output
 
     def write_file(self, filename: str, data, encoding_format: str = "utf-8"):
@@ -123,6 +123,7 @@ class VttToStr:
         with open(filename, mode="r", encoding=encoding_format) as file:
             print(f"file being read: {filename}\n")
             content = file.read()
+
         return content
 
     def process(self, filename: str, encoding_format: str = "utf-8"):

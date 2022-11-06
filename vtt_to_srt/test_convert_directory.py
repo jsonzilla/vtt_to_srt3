@@ -25,15 +25,3 @@ class TestConvertDirectories:
 
         assert equals_files("input_alternative_utf8.srt",
                             "valid_output_utf8.srt", "utf-8")
-
-    def test_fail_in_convert_directory_with_multiples_encodings(self, clean_files):
-        """Test convert file"""
-        convert_file = ConvertDirectories(
-            concat_path("."), True, "utf-8")
-        convert_file.convert()
-
-        assert equals_files("input_alternative_utf8.srt",
-                            "valid_output_utf8.srt", "utf-8")
-
-        assert equals_files("input_alternative_utf8.srt",
-                            "valid_output_utf8.srt", "utf-8")
