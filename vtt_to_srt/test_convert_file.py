@@ -1,0 +1,27 @@
+import os
+import pytest
+
+from vtt_to_srt.test_base import concat_path, equals_files, clean_files
+from vtt_to_srt.vtt_to_srt import ConvertFile
+
+
+class TestConvertFile:
+    """Test ConvertFile class"""
+
+    def test_convert_file(self, clean_files):
+        """Test convert file"""
+        convert_file = ConvertFile(
+            concat_path("input_utf8.vtt"), "utf-8")
+        convert_file.convert()
+
+        assert equals_files("input_utf8.srt",
+                            "valid_output_utf8.srt", "utf-8")
+
+    def test_convert_file_not_utf8(self, clean_files):
+        """Test convert file with not utf-8 encoding"""
+        convert_file = ConvertFile(
+            concat_path("input_iso-8859-2.vtt"), "ISO-8859-2")
+        convert_file.convert()
+
+        assert equals_files("input_iso-8859-2.srt",
+                            "valid_output_iso-8859-2.srt", "ISO-8859-2")
