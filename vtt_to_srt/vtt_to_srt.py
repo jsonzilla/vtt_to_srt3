@@ -136,7 +136,6 @@ class VttToStr:
         str_data: str = ""
         str_data = str_data + self.convert_content(file_contents)
         filename = filename.replace(".vtt", ".srt")
-        print(filename)
         self.write_file(filename, str_data, encoding_format)
 
 
@@ -218,7 +217,10 @@ class ConvertDirectories:
         encoding_format -- encoding format
         """
         if ".vtt" in file:
-            self.vtt_to_str.process(file, self.encoding_format)
+            try:
+                self.vtt_to_str.process(file, self.encoding_format)
+            except UnicodeDecodeError:
+                print(f"UnicodeDecodeError: {file}")
 
     def _vtt_to_srt_batch(self, directory: str):
         """Walk down directory searching for vtt files

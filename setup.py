@@ -12,7 +12,8 @@ setuptools.setup(name='vtt_to_srt3',
                  long_description=long_description,
                  long_description_content_type="text/markdown",
                  url="https://github.com/jsonzilla/vtt-to-srt.py",
-                 packages=setuptools.find_packages(),
+                 packages=setuptools.find_packages(
+                     exclude=["test_*.py", "valid*.*", "input*.*"]),
                  classifiers=["Programming Language :: Python :: 3.7",
                               "Programming Language :: Python :: 3.8",
                               "Programming Language :: Python :: 3.9",
@@ -21,6 +22,6 @@ setuptools.setup(name='vtt_to_srt3',
                               "Operating System :: OS Independent"],
                  entry_points={
                      "console_scripts":
-                        ["vtt_to_srt=vtt_to_srt.vtt_to_srt:main"]
+                     ["vtt_to_srt=vtt_to_srt.vtt_to_srt:main"]
                  },
                  )
