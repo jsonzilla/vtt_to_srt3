@@ -19,8 +19,7 @@ class VttToStr:
     def convert_header(self, contents):
         """Convert of vtt header to srt format
 
-        Keyword arguments:
-        contents
+        :contents -- contents of vtt file
         """
         replacement = re.sub(r"WEBVTT\n", "", contents)
         replacement = re.sub(r"Kind:[ \-\w]+\n", "", replacement)
@@ -30,8 +29,7 @@ class VttToStr:
     def add_padding_to_timestamp(self, contents):
         """Add 00 to padding timestamp of to srt format
 
-        Keyword arguments:
-        contents
+        :contents -- contents of vtt file
         """
         find_srt = Template(r'$a,$b --> $a,$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n')
         minute = r"((?:\d\d:){1}\d\d)"
@@ -45,8 +43,7 @@ class VttToStr:
     def convert_timestamp(self, contents):
         """Convert timestamp of vtt file to srt format
 
-        Keyword arguments:
-        contents
+        :contents -- contents of vtt file
         """
         find_vtt = Template(r'$a.$b --> $a.$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n')
         all_timestamp = find_vtt.substitute(
@@ -56,8 +53,7 @@ class VttToStr:
     def convert_content(self, contents):
         """Convert content of vtt file to srt format
 
-        Keyword arguments:
-        contents
+        :contents -- contents of vtt file
         """
         replacement = self.convert_timestamp(contents)
         replacement = self.convert_header(replacement)
@@ -74,16 +70,14 @@ class VttToStr:
     def has_timestamp(self, content):
         """Check if line is a timestamp srt format
 
-        Keyword arguments:
-        contents
+        :contents -- contents of vtt file
         """
         return re.match(r"((\d\d:){2}\d\d),(\d{3}) --> ((\d\d:){2}\d\d),(\d{3})", content) is not None
 
     def add_sequence_numbers(self, contents):
         """Adds sequence numbers to subtitle contents and returns new subtitle contents
 
-        Keyword arguments:
-        contents
+        :contents -- contents of vtt file
         """
         output = ''
         lines = contents.split('\n')
@@ -98,10 +92,9 @@ class VttToStr:
     def write_file(self, filename: str, data, encoding_format: str = "utf-8"):
         """Create a file with some data
 
-        Keyword arguments:
-        filename -- filename pat
-        data -- data to write
-        encoding_format -- encoding format
+        :filename -- filename pat
+        :data -- data to write
+        :encoding_format -- encoding format
         """
         try:
             with open(filename, "w", encoding=encoding_format) as file:
@@ -115,9 +108,8 @@ class VttToStr:
     def read_file(self, filename: str, encoding_format: str = "utf-8"):
         """Read a file text
 
-        Keyword arguments:
-        filename -- filename path
-        encoding_format -- encoding format
+        :filename -- filename path
+        :encoding_format -- encoding format
         """
         content: str = ''
         with open(filename, mode="r", encoding=encoding_format) as file:
@@ -129,9 +121,8 @@ class VttToStr:
     def process(self, filename: str, encoding_format: str = "utf-8"):
         """Convert vtt file to a srt file
 
-        Keyword arguments:
-        str_name_file -- filename path
-        encoding_format -- encoding format
+        :str_name_file -- filename path
+        :encoding_format -- encoding format
         """
         file_contents: str = self.read_file(filename, encoding_format)
         str_data: str = ""
@@ -146,10 +137,9 @@ class ConvertFile:
     def __init__(self, pathname: str, encoding_format: str):
         """Constructor
 
-           Keyword arguments:
-           pathname -- path to file or directory
-           encoding_format -- encoding format
-           """
+        :pathname -- path to file or directory
+        :encoding_format -- encoding format
+        """
         self.pathname = pathname
         self.encoding_format = encoding_format
         self.vtt_to_str = VttToStr()
@@ -166,11 +156,10 @@ class ConvertDirectories:
     def __init__(self, pathname: str, enable_recursive: bool, encoding_format: str):
         """Constructor
 
-           Keyword arguments:
-           pathname -- path to file or directory
-           enable_recursive -- enable recursive
-           encoding_format -- encoding format
-           """
+        pathname -- path to file or directory
+        :enable_recursive -- enable recursive
+        :encoding_format -- encoding format
+        """
         self.pathname = pathname
         self.enable_recursive = enable_recursive
         self.encoding_format = encoding_format
@@ -179,10 +168,9 @@ class ConvertDirectories:
     def _walk_dir(self, top_most_path: str, callback):
         """Walk a directory
 
-           Keyword arguments:
-           top_most_path -- parent directory
-           callback -- function to call
-           """
+        :top_most_path -- parent directory
+        :callback -- function to call
+        """
         for file in os.listdir(top_most_path):
             pathname = os.path.join(top_most_path, file)
             if not os.path.isdir(pathname):
@@ -193,9 +181,8 @@ class ConvertDirectories:
         """Recursively descend the directory tree rooted at top_most_path,
         calling the callback function for each regular file
 
-        Keyword arguments:
-        top_most_path -- parent directory
-        callback -- function to call
+        :top_most_path -- parent directory
+        :callback -- function to call
         """
         for file in os.listdir(top_most_path):
             pathname = os.path.join(top_most_path, file)
@@ -213,9 +200,7 @@ class ConvertDirectories:
     def convert_vtt_to_str(self, file: str):
         """Convert vtt file to string
 
-        Keyword arguments:
-        f -- file to convert
-        encoding_format -- encoding format
+        :file -- file to convert
         """
         if ".vtt" in file:
             try:
@@ -226,9 +211,7 @@ class ConvertDirectories:
     def _vtt_to_srt_batch(self, directory: str):
         """Walk down directory searching for vtt files
 
-        Keyword arguments:
-        directory -- path to search
-        enable_recursive_search -- enable recursive
+        :directory -- path to search
         """
         top_most_path = directory
         if self.enable_recursive:
@@ -264,12 +247,7 @@ def _parse_args():
 
 
 def main():
-    """main
-
-       Keyword arguments:
-        pathname - a file or directory with files to be converted
-        -r walk path recursively
-       """
+    """main function"""
 
     args = _parse_args()
     pathname = args.pathname
