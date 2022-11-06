@@ -1,4 +1,7 @@
-﻿import pytest
+﻿#!/usr/bin/python
+# Jeison Cardoso
+
+import pytest
 
 from vtt_to_srt.vtt_to_srt import VttToStr
 

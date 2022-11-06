@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>vtt_to_srt API documentation</title>
+<meta name="description" content="Convert of vtt to srt format" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>vtt_to_srt</code></h1>
+</header>
+<section id="section-intro">
+<p>Convert of vtt to srt format</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/python
+# Jansen A. Simanullang / Jeison Cardoso
+
+&#34;&#34;&#34;Convert of vtt to srt format&#34;&#34;&#34;
+
+import os
+import re
+import argparse
+from string import Template
+from stat import S_ISDIR, ST_MODE, S_ISREG
+
+
+class VttToStr:
+    &#34;&#34;&#34;Convert vtt to srt&#34;&#34;&#34;
+
+    def __init__(self) -&gt; None:
+        pass
+
+    def convert_header(self, contents):
+        &#34;&#34;&#34;Convert of vtt header to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        replacement = re.sub(r&#34;WEBVTT\n&#34;, &#34;&#34;, contents)
+        replacement = re.sub(r&#34;Kind:[ \-\w]+\n&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;Language:[ \-\w]+\n&#34;, &#34;&#34;, replacement)
+        return replacement
+
+    def add_padding_to_timestamp(self, contents):
+        &#34;&#34;&#34;Add 00 to padding timestamp of to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        find_srt = Template(r&#39;$a,$b --&gt; $a,$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n&#39;)
+        minute = r&#34;((?:\d\d:){1}\d\d)&#34;
+        second = r&#34;((?:\d\d:){0}\d\d)&#34;
+        padding_minute = find_srt.substitute(a=minute, b=r&#34;(\d{0,3})&#34;)
+        padding_second = find_srt.substitute(a=second, b=r&#34;(\d{0,3})&#34;)
+        replacement = re.sub(
+            padding_minute, r&#34;00:\1,\2 --&gt; 00:\3,\4\n&#34;, contents)
+        return re.sub(padding_second, r&#34;00:00:\1,\2 --&gt; 00:00:\3,\4\n&#34;, replacement)
+
+    def convert_timestamp(self, contents):
+        &#34;&#34;&#34;Convert timestamp of vtt file to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        find_vtt = Template(r&#39;$a.$b --&gt; $a.$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n&#39;)
+        all_timestamp = find_vtt.substitute(
+            a=r&#34;((?:\d\d:){0,2}\d\d)&#34;, b=r&#34;(\d{0,3})&#34;)
+        return self.add_padding_to_timestamp(re.sub(all_timestamp, r&#34;\1,\2 --&gt; \3,\4\n&#34;, contents))
+
+    def convert_content(self, contents):
+        &#34;&#34;&#34;Convert content of vtt file to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        replacement = self.convert_timestamp(contents)
+        replacement = self.convert_header(replacement)
+        replacement = re.sub(r&#34;&lt;c[.\w\d]*&gt;&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;&lt;/c&gt;&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;&lt;\d\d:\d\d:\d\d.\d\d\d&gt;&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(
+            r&#34;::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;Style:\n##\n&#34;, &#34;&#34;, replacement)
+        replacement = self.add_sequence_numbers(replacement)
+
+        return replacement
+
+    def has_timestamp(self, content):
+        &#34;&#34;&#34;Check if line is a timestamp srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        return re.match(r&#34;((\d\d:){2}\d\d),(\d{3}) --&gt; ((\d\d:){2}\d\d),(\d{3})&#34;, content) is not None
+
+    def add_sequence_numbers(self, contents):
+        &#34;&#34;&#34;Adds sequence numbers to subtitle contents and returns new subtitle contents
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        output = &#39;&#39;
+        lines = contents.split(&#39;\n&#39;)
+        i = 1
+        for line in lines:
+            if self.has_timestamp(line):
+                output += str(i) + &#39;\n&#39;
+                i += 1
+            output += line + &#39;\n&#39;
+        return output
+
+    def write_file(self, filename: str, data, encoding_format: str = &#34;utf-8&#34;):
+        &#34;&#34;&#34;Create a file with some data
+
+        :filename -- filename pat
+        :data -- data to write
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        try:
+            with open(filename, &#34;w&#34;, encoding=encoding_format) as file:
+                file.writelines(str(data))
+        except IOError:
+            filename = filename.split(os.sep)[-1]
+            with open(filename, &#34;w&#34;, encoding=encoding_format) as file:
+                file.writelines(str(data))
+        print(f&#34;file created {filename}\n&#34;)
+
+    def read_file(self, filename: str, encoding_format: str = &#34;utf-8&#34;):
+        &#34;&#34;&#34;Read a file text
+
+        :filename -- filename path
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        content: str = &#39;&#39;
+        with open(filename, mode=&#34;r&#34;, encoding=encoding_format) as file:
+            print(f&#34;file being read: {filename}\n&#34;)
+            content = file.read()
+
+        return content
+
+    def process(self, filename: str, encoding_format: str = &#34;utf-8&#34;):
+        &#34;&#34;&#34;Convert vtt file to a srt file
+
+        :str_name_file -- filename path
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        file_contents: str = self.read_file(filename, encoding_format)
+        str_data: str = &#34;&#34;
+        str_data = str_data + self.convert_content(file_contents)
+        filename = filename.replace(&#34;.vtt&#34;, &#34;.srt&#34;)
+        self.write_file(filename, str_data, encoding_format)
+
+
+class ConvertFile:
+    &#34;&#34;&#34;Convert vtt file to srt file&#34;&#34;&#34;
+
+    def __init__(self, pathname: str, encoding_format: str):
+        &#34;&#34;&#34;Constructor
+
+        :pathname -- path to file or directory
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        self.pathname = pathname
+        self.encoding_format = encoding_format
+        self.vtt_to_str = VttToStr()
+
+    def convert(self):
+        &#34;&#34;&#34;Convert vtt file to srt file&#34;&#34;&#34;
+        if &#34;.vtt&#34; in self.pathname:
+            self.vtt_to_str.process(self.pathname, self.encoding_format)
+
+
+class ConvertDirectories:
+    &#34;&#34;&#34;Convert vtt files to srt files&#34;&#34;&#34;
+
+    def __init__(self, pathname: str, enable_recursive: bool, encoding_format: str):
+        &#34;&#34;&#34;Constructor
+
+        pathname -- path to file or directory
+        :enable_recursive -- enable recursive
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        self.pathname = pathname
+        self.enable_recursive = enable_recursive
+        self.encoding_format = encoding_format
+        self.vtt_to_str = VttToStr()
+
+    def _walk_dir(self, top_most_path: str, callback):
+        &#34;&#34;&#34;Walk a directory
+
+        :top_most_path -- parent directory
+        :callback -- function to call
+        &#34;&#34;&#34;
+        for file in os.listdir(top_most_path):
+            pathname = os.path.join(top_most_path, file)
+            if not os.path.isdir(pathname):
+                # It&#34;s a file, call the callback function
+                callback(pathname)
+
+    def _walk_tree(self, top_most_path, callback):
+        &#34;&#34;&#34;Recursively descend the directory tree rooted at top_most_path,
+        calling the callback function for each regular file
+
+        :top_most_path -- parent directory
+        :callback -- function to call
+        &#34;&#34;&#34;
+        for file in os.listdir(top_most_path):
+            pathname = os.path.join(top_most_path, file)
+            mode = os.stat(pathname)[ST_MODE]
+            if S_ISDIR(mode):
+                # It&#39;s a directory, recurse into it
+                self._walk_tree(pathname, callback)
+            elif S_ISREG(mode):
+                # It&#39;s a file, call the callback function
+                callback(pathname)
+            else:
+                # Unknown file type, print a message
+                print(f&#34;Skipping {pathname}&#34;)
+
+    def convert_vtt_to_str(self, file: str):
+        &#34;&#34;&#34;Convert vtt file to string
+
+        :file -- file to convert
+        &#34;&#34;&#34;
+        if &#34;.vtt&#34; in file:
+            try:
+                self.vtt_to_str.process(file, self.encoding_format)
+            except UnicodeDecodeError:
+                print(f&#34;UnicodeDecodeError: {file}&#34;)
+
+    def _vtt_to_srt_batch(self, directory: str):
+        &#34;&#34;&#34;Walk down directory searching for vtt files
+
+        :directory -- path to search
+        &#34;&#34;&#34;
+        top_most_path = directory
+        if self.enable_recursive:
+            self._walk_tree(top_most_path, self.convert_vtt_to_str)
+        else:
+            self._walk_dir(top_most_path, self.convert_vtt_to_str)
+
+    def convert(self):
+        &#34;&#34;&#34;Convert vtt files to srt files&#34;&#34;&#34;
+        self._vtt_to_srt_batch(self.pathname)
+
+
+def _show_usage():
+    &#34;&#34;&#34;Show a info message about the usage&#34;&#34;&#34;
+    print(&#34;\nUsage:\tvtt_to_srt pathname [-r]\n&#34;)
+    print(&#34;\tpathname\t- a file or directory with files to be converted&#34;)
+    print(&#34;\t-r\t\t- walk path recursively\n&#34;)
+
+
+def _parse_args():
+    &#34;&#34;&#34;Parse command line arguments&#34;&#34;&#34;
+    parser = argparse.ArgumentParser(
+        description=&#39;Convert vtt files to srt files&#39;)
+    parser.add_argument(
+        &#34;pathname&#34;, help=&#34;a file or directory with files to be converted&#34;)
+    parser.add_argument(&#34;-r&#34;, &#34;--recursive&#34;,
+                        help=&#34;walk path recursively&#34;, action=&#34;store_true&#34;)
+    parser.add_argument(&#34;-e&#34;, &#34;--encoding&#34;,
+                        help=&#34;encoding format for input and output files&#34;)
+
+    args = parser.parse_args()
+    return args
+
+
+def main():
+    &#34;&#34;&#34;main function&#34;&#34;&#34;
+
+    args = _parse_args()
+    pathname = args.pathname
+    recursive = args.recursive
+    encoding = args.encoding
+
+    if not encoding:
+        encoding = &#34;utf-8&#34;
+
+    if os.path.isfile(pathname):
+        print(f&#34;file being converted: {pathname}\n&#34;)
+        ConvertFile(pathname, encoding).convert()
+
+    if os.path.isdir(pathname):
+        print(f&#34;directory being converted: {pathname}\n&#34;)
+        ConvertDirectories(pathname, recursive, encoding).convert()
+
+    if not os.path.isfile(pathname) and not os.path.isdir(pathname):
+        print(f&#34;pathname is not a file or directory: {pathname}\n&#34;)
+        _show_usage()
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="vtt_to_srt.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>main function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;main function&#34;&#34;&#34;
+
+    args = _parse_args()
+    pathname = args.pathname
+    recursive = args.recursive
+    encoding = args.encoding
+
+    if not encoding:
+        encoding = &#34;utf-8&#34;
+
+    if os.path.isfile(pathname):
+        print(f&#34;file being converted: {pathname}\n&#34;)
+        ConvertFile(pathname, encoding).convert()
+
+    if os.path.isdir(pathname):
+        print(f&#34;directory being converted: {pathname}\n&#34;)
+        ConvertDirectories(pathname, recursive, encoding).convert()
+
+    if not os.path.isfile(pathname) and not os.path.isdir(pathname):
+        print(f&#34;pathname is not a file or directory: {pathname}\n&#34;)
+        _show_usage()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="vtt_to_srt.ConvertDirectories"><code class="flex name class">
+<span>class <span class="ident">ConvertDirectories</span></span>
+<span>(</span><span>pathname: str, enable_recursive: bool, encoding_format: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt files to srt files</p>
+<p>Constructor</p>
+<p>pathname &ndash; path to file or directory
+:enable_recursive &ndash; enable recursive
+:encoding_format &ndash; encoding format</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ConvertDirectories:
+    &#34;&#34;&#34;Convert vtt files to srt files&#34;&#34;&#34;
+
+    def __init__(self, pathname: str, enable_recursive: bool, encoding_format: str):
+        &#34;&#34;&#34;Constructor
+
+        pathname -- path to file or directory
+        :enable_recursive -- enable recursive
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        self.pathname = pathname
+        self.enable_recursive = enable_recursive
+        self.encoding_format = encoding_format
+        self.vtt_to_str = VttToStr()
+
+    def _walk_dir(self, top_most_path: str, callback):
+        &#34;&#34;&#34;Walk a directory
+
+        :top_most_path -- parent directory
+        :callback -- function to call
+        &#34;&#34;&#34;
+        for file in os.listdir(top_most_path):
+            pathname = os.path.join(top_most_path, file)
+            if not os.path.isdir(pathname):
+                # It&#34;s a file, call the callback function
+                callback(pathname)
+
+    def _walk_tree(self, top_most_path, callback):
+        &#34;&#34;&#34;Recursively descend the directory tree rooted at top_most_path,
+        calling the callback function for each regular file
+
+        :top_most_path -- parent directory
+        :callback -- function to call
+        &#34;&#34;&#34;
+        for file in os.listdir(top_most_path):
+            pathname = os.path.join(top_most_path, file)
+            mode = os.stat(pathname)[ST_MODE]
+            if S_ISDIR(mode):
+                # It&#39;s a directory, recurse into it
+                self._walk_tree(pathname, callback)
+            elif S_ISREG(mode):
+                # It&#39;s a file, call the callback function
+                callback(pathname)
+            else:
+                # Unknown file type, print a message
+                print(f&#34;Skipping {pathname}&#34;)
+
+    def convert_vtt_to_str(self, file: str):
+        &#34;&#34;&#34;Convert vtt file to string
+
+        :file -- file to convert
+        &#34;&#34;&#34;
+        if &#34;.vtt&#34; in file:
+            try:
+                self.vtt_to_str.process(file, self.encoding_format)
+            except UnicodeDecodeError:
+                print(f&#34;UnicodeDecodeError: {file}&#34;)
+
+    def _vtt_to_srt_batch(self, directory: str):
+        &#34;&#34;&#34;Walk down directory searching for vtt files
+
+        :directory -- path to search
+        &#34;&#34;&#34;
+        top_most_path = directory
+        if self.enable_recursive:
+            self._walk_tree(top_most_path, self.convert_vtt_to_str)
+        else:
+            self._walk_dir(top_most_path, self.convert_vtt_to_str)
+
+    def convert(self):
+        &#34;&#34;&#34;Convert vtt files to srt files&#34;&#34;&#34;
+        self._vtt_to_srt_batch(self.pathname)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="vtt_to_srt.ConvertDirectories.convert"><code class="name flex">
+<span>def <span class="ident">convert</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt files to srt files</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert(self):
+    &#34;&#34;&#34;Convert vtt files to srt files&#34;&#34;&#34;
+    self._vtt_to_srt_batch(self.pathname)</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.ConvertDirectories.convert_vtt_to_str"><code class="name flex">
+<span>def <span class="ident">convert_vtt_to_str</span></span>(<span>self, file: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt file to string</p>
+<p>:file &ndash; file to convert</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert_vtt_to_str(self, file: str):
+    &#34;&#34;&#34;Convert vtt file to string
+
+    :file -- file to convert
+    &#34;&#34;&#34;
+    if &#34;.vtt&#34; in file:
+        try:
+            self.vtt_to_str.process(file, self.encoding_format)
+        except UnicodeDecodeError:
+            print(f&#34;UnicodeDecodeError: {file}&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="vtt_to_srt.ConvertFile"><code class="flex name class">
+<span>class <span class="ident">ConvertFile</span></span>
+<span>(</span><span>pathname: str, encoding_format: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt file to srt file</p>
+<p>Constructor</p>
+<p>:pathname &ndash; path to file or directory
+:encoding_format &ndash; encoding format</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ConvertFile:
+    &#34;&#34;&#34;Convert vtt file to srt file&#34;&#34;&#34;
+
+    def __init__(self, pathname: str, encoding_format: str):
+        &#34;&#34;&#34;Constructor
+
+        :pathname -- path to file or directory
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        self.pathname = pathname
+        self.encoding_format = encoding_format
+        self.vtt_to_str = VttToStr()
+
+    def convert(self):
+        &#34;&#34;&#34;Convert vtt file to srt file&#34;&#34;&#34;
+        if &#34;.vtt&#34; in self.pathname:
+            self.vtt_to_str.process(self.pathname, self.encoding_format)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="vtt_to_srt.ConvertFile.convert"><code class="name flex">
+<span>def <span class="ident">convert</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt file to srt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert(self):
+    &#34;&#34;&#34;Convert vtt file to srt file&#34;&#34;&#34;
+    if &#34;.vtt&#34; in self.pathname:
+        self.vtt_to_str.process(self.pathname, self.encoding_format)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="vtt_to_srt.VttToStr"><code class="flex name class">
+<span>class <span class="ident">VttToStr</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt to srt</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VttToStr:
+    &#34;&#34;&#34;Convert vtt to srt&#34;&#34;&#34;
+
+    def __init__(self) -&gt; None:
+        pass
+
+    def convert_header(self, contents):
+        &#34;&#34;&#34;Convert of vtt header to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        replacement = re.sub(r&#34;WEBVTT\n&#34;, &#34;&#34;, contents)
+        replacement = re.sub(r&#34;Kind:[ \-\w]+\n&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;Language:[ \-\w]+\n&#34;, &#34;&#34;, replacement)
+        return replacement
+
+    def add_padding_to_timestamp(self, contents):
+        &#34;&#34;&#34;Add 00 to padding timestamp of to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        find_srt = Template(r&#39;$a,$b --&gt; $a,$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n&#39;)
+        minute = r&#34;((?:\d\d:){1}\d\d)&#34;
+        second = r&#34;((?:\d\d:){0}\d\d)&#34;
+        padding_minute = find_srt.substitute(a=minute, b=r&#34;(\d{0,3})&#34;)
+        padding_second = find_srt.substitute(a=second, b=r&#34;(\d{0,3})&#34;)
+        replacement = re.sub(
+            padding_minute, r&#34;00:\1,\2 --&gt; 00:\3,\4\n&#34;, contents)
+        return re.sub(padding_second, r&#34;00:00:\1,\2 --&gt; 00:00:\3,\4\n&#34;, replacement)
+
+    def convert_timestamp(self, contents):
+        &#34;&#34;&#34;Convert timestamp of vtt file to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        find_vtt = Template(r&#39;$a.$b --&gt; $a.$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n&#39;)
+        all_timestamp = find_vtt.substitute(
+            a=r&#34;((?:\d\d:){0,2}\d\d)&#34;, b=r&#34;(\d{0,3})&#34;)
+        return self.add_padding_to_timestamp(re.sub(all_timestamp, r&#34;\1,\2 --&gt; \3,\4\n&#34;, contents))
+
+    def convert_content(self, contents):
+        &#34;&#34;&#34;Convert content of vtt file to srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        replacement = self.convert_timestamp(contents)
+        replacement = self.convert_header(replacement)
+        replacement = re.sub(r&#34;&lt;c[.\w\d]*&gt;&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;&lt;/c&gt;&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;&lt;\d\d:\d\d:\d\d.\d\d\d&gt;&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(
+            r&#34;::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n&#34;, &#34;&#34;, replacement)
+        replacement = re.sub(r&#34;Style:\n##\n&#34;, &#34;&#34;, replacement)
+        replacement = self.add_sequence_numbers(replacement)
+
+        return replacement
+
+    def has_timestamp(self, content):
+        &#34;&#34;&#34;Check if line is a timestamp srt format
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        return re.match(r&#34;((\d\d:){2}\d\d),(\d{3}) --&gt; ((\d\d:){2}\d\d),(\d{3})&#34;, content) is not None
+
+    def add_sequence_numbers(self, contents):
+        &#34;&#34;&#34;Adds sequence numbers to subtitle contents and returns new subtitle contents
+
+        :contents -- contents of vtt file
+        &#34;&#34;&#34;
+        output = &#39;&#39;
+        lines = contents.split(&#39;\n&#39;)
+        i = 1
+        for line in lines:
+            if self.has_timestamp(line):
+                output += str(i) + &#39;\n&#39;
+                i += 1
+            output += line + &#39;\n&#39;
+        return output
+
+    def write_file(self, filename: str, data, encoding_format: str = &#34;utf-8&#34;):
+        &#34;&#34;&#34;Create a file with some data
+
+        :filename -- filename pat
+        :data -- data to write
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        try:
+            with open(filename, &#34;w&#34;, encoding=encoding_format) as file:
+                file.writelines(str(data))
+        except IOError:
+            filename = filename.split(os.sep)[-1]
+            with open(filename, &#34;w&#34;, encoding=encoding_format) as file:
+                file.writelines(str(data))
+        print(f&#34;file created {filename}\n&#34;)
+
+    def read_file(self, filename: str, encoding_format: str = &#34;utf-8&#34;):
+        &#34;&#34;&#34;Read a file text
+
+        :filename -- filename path
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        content: str = &#39;&#39;
+        with open(filename, mode=&#34;r&#34;, encoding=encoding_format) as file:
+            print(f&#34;file being read: {filename}\n&#34;)
+            content = file.read()
+
+        return content
+
+    def process(self, filename: str, encoding_format: str = &#34;utf-8&#34;):
+        &#34;&#34;&#34;Convert vtt file to a srt file
+
+        :str_name_file -- filename path
+        :encoding_format -- encoding format
+        &#34;&#34;&#34;
+        file_contents: str = self.read_file(filename, encoding_format)
+        str_data: str = &#34;&#34;
+        str_data = str_data + self.convert_content(file_contents)
+        filename = filename.replace(&#34;.vtt&#34;, &#34;.srt&#34;)
+        self.write_file(filename, str_data, encoding_format)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="vtt_to_srt.VttToStr.add_padding_to_timestamp"><code class="name flex">
+<span>def <span class="ident">add_padding_to_timestamp</span></span>(<span>self, contents)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add 00 to padding timestamp of to srt format</p>
+<p>:contents &ndash; contents of vtt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_padding_to_timestamp(self, contents):
+    &#34;&#34;&#34;Add 00 to padding timestamp of to srt format
+
+    :contents -- contents of vtt file
+    &#34;&#34;&#34;
+    find_srt = Template(r&#39;$a,$b --&gt; $a,$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n&#39;)
+    minute = r&#34;((?:\d\d:){1}\d\d)&#34;
+    second = r&#34;((?:\d\d:){0}\d\d)&#34;
+    padding_minute = find_srt.substitute(a=minute, b=r&#34;(\d{0,3})&#34;)
+    padding_second = find_srt.substitute(a=second, b=r&#34;(\d{0,3})&#34;)
+    replacement = re.sub(
+        padding_minute, r&#34;00:\1,\2 --&gt; 00:\3,\4\n&#34;, contents)
+    return re.sub(padding_second, r&#34;00:00:\1,\2 --&gt; 00:00:\3,\4\n&#34;, replacement)</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.add_sequence_numbers"><code class="name flex">
+<span>def <span class="ident">add_sequence_numbers</span></span>(<span>self, contents)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds sequence numbers to subtitle contents and returns new subtitle contents</p>
+<p>:contents &ndash; contents of vtt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_sequence_numbers(self, contents):
+    &#34;&#34;&#34;Adds sequence numbers to subtitle contents and returns new subtitle contents
+
+    :contents -- contents of vtt file
+    &#34;&#34;&#34;
+    output = &#39;&#39;
+    lines = contents.split(&#39;\n&#39;)
+    i = 1
+    for line in lines:
+        if self.has_timestamp(line):
+            output += str(i) + &#39;\n&#39;
+            i += 1
+        output += line + &#39;\n&#39;
+    return output</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.convert_content"><code class="name flex">
+<span>def <span class="ident">convert_content</span></span>(<span>self, contents)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert content of vtt file to srt format</p>
+<p>:contents &ndash; contents of vtt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert_content(self, contents):
+    &#34;&#34;&#34;Convert content of vtt file to srt format
+
+    :contents -- contents of vtt file
+    &#34;&#34;&#34;
+    replacement = self.convert_timestamp(contents)
+    replacement = self.convert_header(replacement)
+    replacement = re.sub(r&#34;&lt;c[.\w\d]*&gt;&#34;, &#34;&#34;, replacement)
+    replacement = re.sub(r&#34;&lt;/c&gt;&#34;, &#34;&#34;, replacement)
+    replacement = re.sub(r&#34;&lt;\d\d:\d\d:\d\d.\d\d\d&gt;&#34;, &#34;&#34;, replacement)
+    replacement = re.sub(
+        r&#34;::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n&#34;, &#34;&#34;, replacement)
+    replacement = re.sub(r&#34;Style:\n##\n&#34;, &#34;&#34;, replacement)
+    replacement = self.add_sequence_numbers(replacement)
+
+    return replacement</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.convert_header"><code class="name flex">
+<span>def <span class="ident">convert_header</span></span>(<span>self, contents)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert of vtt header to srt format</p>
+<p>:contents &ndash; contents of vtt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert_header(self, contents):
+    &#34;&#34;&#34;Convert of vtt header to srt format
+
+    :contents -- contents of vtt file
+    &#34;&#34;&#34;
+    replacement = re.sub(r&#34;WEBVTT\n&#34;, &#34;&#34;, contents)
+    replacement = re.sub(r&#34;Kind:[ \-\w]+\n&#34;, &#34;&#34;, replacement)
+    replacement = re.sub(r&#34;Language:[ \-\w]+\n&#34;, &#34;&#34;, replacement)
+    return replacement</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.convert_timestamp"><code class="name flex">
+<span>def <span class="ident">convert_timestamp</span></span>(<span>self, contents)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert timestamp of vtt file to srt format</p>
+<p>:contents &ndash; contents of vtt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert_timestamp(self, contents):
+    &#34;&#34;&#34;Convert timestamp of vtt file to srt format
+
+    :contents -- contents of vtt file
+    &#34;&#34;&#34;
+    find_vtt = Template(r&#39;$a.$b --&gt; $a.$b(?:[ \-\w]+:[\w\%\d:,.]+)*\n&#39;)
+    all_timestamp = find_vtt.substitute(
+        a=r&#34;((?:\d\d:){0,2}\d\d)&#34;, b=r&#34;(\d{0,3})&#34;)
+    return self.add_padding_to_timestamp(re.sub(all_timestamp, r&#34;\1,\2 --&gt; \3,\4\n&#34;, contents))</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.has_timestamp"><code class="name flex">
+<span>def <span class="ident">has_timestamp</span></span>(<span>self, content)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check if line is a timestamp srt format</p>
+<p>:contents &ndash; contents of vtt file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def has_timestamp(self, content):
+    &#34;&#34;&#34;Check if line is a timestamp srt format
+
+    :contents -- contents of vtt file
+    &#34;&#34;&#34;
+    return re.match(r&#34;((\d\d:){2}\d\d),(\d{3}) --&gt; ((\d\d:){2}\d\d),(\d{3})&#34;, content) is not None</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.process"><code class="name flex">
+<span>def <span class="ident">process</span></span>(<span>self, filename: str, encoding_format: str = 'utf-8')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert vtt file to a srt file</p>
+<p>:str_name_file &ndash; filename path
+:encoding_format &ndash; encoding format</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process(self, filename: str, encoding_format: str = &#34;utf-8&#34;):
+    &#34;&#34;&#34;Convert vtt file to a srt file
+
+    :str_name_file -- filename path
+    :encoding_format -- encoding format
+    &#34;&#34;&#34;
+    file_contents: str = self.read_file(filename, encoding_format)
+    str_data: str = &#34;&#34;
+    str_data = str_data + self.convert_content(file_contents)
+    filename = filename.replace(&#34;.vtt&#34;, &#34;.srt&#34;)
+    self.write_file(filename, str_data, encoding_format)</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.read_file"><code class="name flex">
+<span>def <span class="ident">read_file</span></span>(<span>self, filename: str, encoding_format: str = 'utf-8')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read a file text</p>
+<p>:filename &ndash; filename path
+:encoding_format &ndash; encoding format</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_file(self, filename: str, encoding_format: str = &#34;utf-8&#34;):
+    &#34;&#34;&#34;Read a file text
+
+    :filename -- filename path
+    :encoding_format -- encoding format
+    &#34;&#34;&#34;
+    content: str = &#39;&#39;
+    with open(filename, mode=&#34;r&#34;, encoding=encoding_format) as file:
+        print(f&#34;file being read: {filename}\n&#34;)
+        content = file.read()
+
+    return content</code></pre>
+</details>
+</dd>
+<dt id="vtt_to_srt.VttToStr.write_file"><code class="name flex">
+<span>def <span class="ident">write_file</span></span>(<span>self, filename: str, data, encoding_format: str = 'utf-8')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a file with some data</p>
+<p>:filename &ndash; filename pat
+:data &ndash; data to write
+:encoding_format &ndash; encoding format</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_file(self, filename: str, data, encoding_format: str = &#34;utf-8&#34;):
+    &#34;&#34;&#34;Create a file with some data
+
+    :filename -- filename pat
+    :data -- data to write
+    :encoding_format -- encoding format
+    &#34;&#34;&#34;
+    try:
+        with open(filename, &#34;w&#34;, encoding=encoding_format) as file:
+            file.writelines(str(data))
+    except IOError:
+        filename = filename.split(os.sep)[-1]
+        with open(filename, &#34;w&#34;, encoding=encoding_format) as file:
+            file.writelines(str(data))
+    print(f&#34;file created {filename}\n&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="vtt_to_srt.main" href="#vtt_to_srt.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="vtt_to_srt.ConvertDirectories" href="#vtt_to_srt.ConvertDirectories">ConvertDirectories</a></code></h4>
+<ul class="">
+<li><code><a title="vtt_to_srt.ConvertDirectories.convert" href="#vtt_to_srt.ConvertDirectories.convert">convert</a></code></li>
+<li><code><a title="vtt_to_srt.ConvertDirectories.convert_vtt_to_str" href="#vtt_to_srt.ConvertDirectories.convert_vtt_to_str">convert_vtt_to_str</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="vtt_to_srt.ConvertFile" href="#vtt_to_srt.ConvertFile">ConvertFile</a></code></h4>
+<ul class="">
+<li><code><a title="vtt_to_srt.ConvertFile.convert" href="#vtt_to_srt.ConvertFile.convert">convert</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="vtt_to_srt.VttToStr" href="#vtt_to_srt.VttToStr">VttToStr</a></code></h4>
+<ul class="">
+<li><code><a title="vtt_to_srt.VttToStr.add_padding_to_timestamp" href="#vtt_to_srt.VttToStr.add_padding_to_timestamp">add_padding_to_timestamp</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.add_sequence_numbers" href="#vtt_to_srt.VttToStr.add_sequence_numbers">add_sequence_numbers</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.convert_content" href="#vtt_to_srt.VttToStr.convert_content">convert_content</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.convert_header" href="#vtt_to_srt.VttToStr.convert_header">convert_header</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.convert_timestamp" href="#vtt_to_srt.VttToStr.convert_timestamp">convert_timestamp</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.has_timestamp" href="#vtt_to_srt.VttToStr.has_timestamp">has_timestamp</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.process" href="#vtt_to_srt.VttToStr.process">process</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.read_file" href="#vtt_to_srt.VttToStr.read_file">read_file</a></code></li>
+<li><code><a title="vtt_to_srt.VttToStr.write_file" href="#vtt_to_srt.VttToStr.write_file">write_file</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

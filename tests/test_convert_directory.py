@@ -1,7 +1,10 @@
+#!/usr/bin/python
+# Jeison Cardoso
+
 import os
 import pytest
 
-from vtt_to_srt.test_base import concat_path, equals_files, clean_files
+from test_base import concat_path, equals_files, clean_files
 from vtt_to_srt.vtt_to_srt import ConvertDirectories
 
 

@@ -1,5 +1,7 @@
-# vtt_to_srt.py
+# vtt_to_srt3
 Convert vtt files to srt subtitle format
+
+
 
 ## Note
 For Python 3.x [you can get version for Python 2.7 here](https://github.com/jansenicus/vtt-to-srt.py)
@@ -33,15 +35,36 @@ options:
 ## Usage as a lib
 
 Convert vtt file
-```shell
-from vtt_to_srt.vtt_to_srt import vtt_to_srt
-path = '/path/to/file.vtt'
-vtt_to_srt(path)
+```python
+from vtt_to_srt.vtt_to_srt import ConvertFile
+
+convert_file = ConvertFile("input_utf8.vtt", "utf-8")
+convert_file.convert()
 ```
 
 Recursively convert all vtt files in directory
+```python
+from vtt_to_srt.vtt_to_srt import ConvertDirectories
+
+recursive = False
+convert_file = ConvertDirectories(".", recursive, "utf-8")
+convert_file.convert()
+```
+
+## Manual build
+
+Generate wheel
 ```shell
-from vtt_to_srt.vtt_to_srt import vtt_to_srt
-path = '/path/to/directory'
-vtt_to_srt(path, rec = True)
+python -m pip install --upgrade setuptools wheel build
+python -m build
+```
+
+## Generate documentation
+
+Generate documentation
+```shell
+python -m pip install pdoc3
+pdoc --html vtt_to_srt/vtt_to_srt.py -o docs
+mv docs/vtt_to_srt.html docs/index.html
+rm -rm docs/vtt_to_srt
 ```
