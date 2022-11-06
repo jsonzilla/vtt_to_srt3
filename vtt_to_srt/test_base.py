@@ -24,6 +24,7 @@ def concat_path(pathname):
 
 
 def equals_files(file_a, file_b, encoding):
-    """Compare two text files"""
-    with open(concat_path(file_a), encoding=encoding) as f1, open(concat_path(file_b), encoding=encoding) as f2:
-        return f1.read() == f2.read()
+    """Compare two text files independently of line endings"""
+    with open(concat_path(file_a), "r", encoding=encoding) as file_a:
+        with open(concat_path(file_b), "r", encoding=encoding) as file_b:
+            return file_a.read().replace("\r\n", " ").replace("\n", " ") == file_b.read().replace("\r\n", " ").replace("\n", " ")
