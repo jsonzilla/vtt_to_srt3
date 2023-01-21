@@ -5,7 +5,7 @@ with open(file="README.md", mode="r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(name='vtt_to_srt3',
-                 version='0.2.0.0',
+                 version='0.2.0.1',
                  author="Jeison Cardoso",
                  author_email="j@jsonzilla.com",
                  maintainer="Jeison Cardoso",
