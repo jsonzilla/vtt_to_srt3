@@ -20,6 +20,14 @@ class TestConvertFile:
         assert equals_files("input_utf8.srt",
                             "valid_output_utf8.srt", "utf-8")
 
+    def test_convert_file_with_simple_identifier(self, clean_files):
+        """Test convert file with simple identifier"""
+        convert_file = ConvertFile(concat_path("idd.vtt"), "utf-8")
+        convert_file.convert()
+
+        assert equals_files("idd.srt",
+                            "valid_output_idd.srt", "utf-8")
+
     def test_convert_file_not_utf8(self, clean_files):
         """Test convert file with not utf-8 encoding"""
         convert_file = ConvertFile(
