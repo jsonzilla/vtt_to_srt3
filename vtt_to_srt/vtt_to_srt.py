@@ -16,7 +16,7 @@ class VttToStr:
     def __init__(self) -> None:
         pass
 
-    def convert_header(self, contents):
+    def convert_header(self, contents: str) -> str:
         """Convert of vtt header to srt format
 
         :contents -- contents of vtt file
@@ -26,7 +26,7 @@ class VttToStr:
         replacement = re.sub(r"Language:[ \-\w]+\n", "", replacement)
         return replacement
 
-    def add_padding_to_timestamp(self, contents):
+    def add_padding_to_timestamp(self, contents: str) -> str:
         """Add 00 to padding timestamp of to srt format
 
         :contents -- contents of vtt file
@@ -40,7 +40,7 @@ class VttToStr:
             padding_minute, r"00:\1,\2 --> 00:\3,\4\n", contents)
         return re.sub(padding_second, r"00:00:\1,\2 --> 00:00:\3,\4\n", replacement)
 
-    def convert_timestamp(self, contents):
+    def convert_timestamp(self, contents: str) -> str:
         """Convert timestamp of vtt file to srt format
 
         :contents -- contents of vtt file
@@ -50,7 +50,7 @@ class VttToStr:
             a=r"((?:\d\d:){0,2}\d\d)", b=r"(\d{0,3})")
         return self.add_padding_to_timestamp(re.sub(all_timestamp, r"\1,\2 --> \3,\4\n", contents))
 
-    def convert_content(self, contents):
+    def convert_content(self, contents: str) -> str:
         """Convert content of vtt file to srt format
 
         :contents -- contents of vtt file
@@ -63,31 +63,46 @@ class VttToStr:
         replacement = re.sub(
             r"::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n", "", replacement)
         replacement = re.sub(r"Style:\n##\n", "", replacement)
+        replacement = self.remove_simple_identifiers(replacement)
         replacement = self.add_sequence_numbers(replacement)
 
         return replacement
 
-    def has_timestamp(self, content):
+    def has_timestamp(self, content: str) -> bool:
         """Check if line is a timestamp srt format
 
         :contents -- contents of vtt file
         """
         return re.match(r"((\d\d:){2}\d\d),(\d{3}) --> ((\d\d:){2}\d\d),(\d{3})", content) is not None
 
-    def add_sequence_numbers(self, contents):
+    def add_sequence_numbers(self, contents: str) -> str:
         """Adds sequence numbers to subtitle contents and returns new subtitle contents
 
         :contents -- contents of vtt file
         """
-        output = ''
         lines = contents.split('\n')
-        i = 1
+        out = ''
+        counter = 1
         for line in lines:
             if self.has_timestamp(line):
-                output += str(i) + '\n'
-                i += 1
-            output += line + '\n'
-        return output
+                out += str(counter) + '\n'
+                counter += 1
+            out += line + '\n'
+        return out
+
+    def remove_simple_identifiers(self, contents: str) -> str:
+        """Remove simple identifiers of vtt file
+
+        :contents -- contents of vtt file
+        """
+        lines = contents.split('\n')
+        out = []
+        for i, line in enumerate(lines):
+            if self.has_timestamp(line):
+                if re.match(r"^\d+$", lines[i - 1]):
+                    out.pop()
+            out.append(line)
+        return '\n'.join(out)
 
     def write_file(self, filename: str, data, encoding_format: str = "utf-8"):
         """Create a file with some data
