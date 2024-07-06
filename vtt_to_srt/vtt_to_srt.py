@@ -92,15 +92,18 @@ class VttToStr:
 
     def remove_simple_identifiers(self, contents: str) -> str:
         """Remove simple identifiers of vtt file
+            & Remove useless blank lines from the vtt file
 
         :contents -- contents of vtt file
         """
         lines = contents.split('\n')
+        lines = [x for x in lines if x != '']
         out = []
         for i, line in enumerate(lines):
             if self.has_timestamp(line):
                 if re.match(r"^\d+$", lines[i - 1]):
                     out.pop()
+                    out.append('') 
             out.append(line)
         return '\n'.join(out)
 
