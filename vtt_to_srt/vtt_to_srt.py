@@ -63,6 +63,7 @@ class VttToStr:
         replacement = re.sub(
             r"::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n", "", replacement)
         replacement = re.sub(r"Style:\n##\n", "", replacement)
+        replacement = self.remove_blank_lines(replacement)
         replacement = self.remove_simple_identifiers(replacement)
         replacement = self.add_sequence_numbers(replacement)
 
@@ -89,7 +90,36 @@ class VttToStr:
                 counter += 1
             out += line + '\n'
         return out
-
+        
+    def remove_blank_lines(self, contents: str) -> str:
+        # Remove useless blank lines from the vtt file 
+        lines = contents.split('\n')
+        lines = [x for x in lines if x != '']
+        lines.append('')
+        out = []
+        num = 0
+        while num < len(lines) :
+            if re.match(r"^\d+$", lines[num]) and self.has_timestamp(lines[num + 1]):
+                if num == 0 :
+                    pass
+                else:
+                    out.append('')
+                out.append(lines[num])
+                out.append(lines[num + 1])
+                num += 2
+            elif self.has_timestamp(lines[num]): 
+                if num == 0 :
+                    pass
+                else :
+                    out.append('')
+                out.append(lines[num])
+                num += 1
+            else:
+                out.append(lines[num])
+                num += 1
+        out.pop()
+        return '\n'.join(out)
+        
     def remove_simple_identifiers(self, contents: str) -> str:
         """Remove simple identifiers of vtt file
 
@@ -102,7 +132,7 @@ class VttToStr:
                 if re.match(r"^\d+$", lines[i - 1]):
                     out.pop()
             out.append(line)
-        return '\n'.join(out)
+        return '\n'.join(out)   
 
     def write_file(self, filename: str, data, encoding_format: str = "utf-8"):
         """Create a file with some data
