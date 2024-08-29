@@ -63,6 +63,7 @@ class VttToStr:
         replacement = re.sub(
             r"::[\-\w]+\([\-.\w\d]+\)[ ]*{[.,:;\(\) \-\w\d]+\n }\n", "", replacement)
         replacement = re.sub(r"Style:\n##\n", "", replacement)
+        replacement = re.sub(r"<[^>]*>", "", replacement)
         replacement = self.remove_blank_lines(replacement)
         replacement = self.remove_simple_identifiers(replacement)
         replacement = self.add_sequence_numbers(replacement)
