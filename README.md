@@ -19,8 +19,8 @@ python -m pip install vtt_to_srt3
 
 ## Usage from terminal
 
-```shell
-usage: vtt_to_srt [-h] [-r] [-e ENCODING] pathname
+```shell                       
+usage: vtt_to_srt.py [-h] [-r] [-e ENCODING] [-rf] pathname
 
 Convert vtt files to srt files
 
@@ -32,6 +32,7 @@ options:
   -r, --recursive       walk path recursively
   -e ENCODING, --encoding ENCODING
                         encoding format for input and output files
+  -rf, --remove_format  remove the format tags like bold & italic from output files
 ```
 
 ## Usage as a lib
