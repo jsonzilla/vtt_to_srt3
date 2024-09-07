@@ -92,7 +92,8 @@ class VttToStr:
                 counter += 1
             out += line + '\n'
         return out       
-        
+
+
     def remove_blank_lines(self, contents: str) -> str:
         # Remove useless blank lines from the vtt file 
         lines = contents.split('\n')
