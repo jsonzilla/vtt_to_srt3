@@ -19,7 +19,7 @@ python -m pip install vtt_to_srt3
 
 ## Usage from terminal
 
-```shell                       
+```shell
 usage: vtt_to_srt [-h] [-r] [-e ENCODING] [-rf] pathname
 
 Convert vtt files to srt files
