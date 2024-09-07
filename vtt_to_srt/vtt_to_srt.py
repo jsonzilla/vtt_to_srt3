@@ -93,7 +93,6 @@ class VttToStr:
             out += line + '\n'
         return out       
 
-
     def remove_blank_lines(self, contents: str) -> str:
         # Remove useless blank lines from the vtt file 
         lines = contents.split('\n')
@@ -196,7 +195,7 @@ class ConvertFile:
     def convert(self):
         """Convert vtt file to srt file"""
         if ".vtt" in self.pathname:
-            self.vtt_to_str.process(self.pathname,self.remove_format, self.encoding_format )
+            self.vtt_to_str.process(self.pathname,self.remove_format, self.encoding_format)
 
 
 class ConvertDirectories:
