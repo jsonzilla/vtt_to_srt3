@@ -36,3 +36,12 @@ class TestConvertFile:
 
         assert equals_files("input_iso-8859-2.srt",
                             "valid_output_iso-8859-2.srt", "ISO-8859-2")
+                            
+    def test_convert_file_no_format(self, clean_files):
+        """ Test convert file with remove format tags """
+        convert_file = ConvertFile(concat_path("idd_format.vtt"), "utf-8", True)
+        convert_file.convert()
+        
+        assert equals_files("idd_format.srt",
+                            "valid_output_idd_format.srt", "utf-8")
+                            
