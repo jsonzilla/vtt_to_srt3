@@ -278,6 +278,7 @@ def _show_usage():
     print("\nUsage:\tvtt_to_srt pathname [-r]\n")
     print("\tpathname\t- a file or directory with files to be converted")
     print("\t-r\t\t- walk path recursively\n")
+    print("\t-rf\t\t- remove the format tags like bold & italic from output files\n")
 
 
 def _parse_args():
