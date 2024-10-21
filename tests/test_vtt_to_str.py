@@ -51,3 +51,27 @@ class TestVttToStr:
             "告訴你，今晚我想帶你出去。\n")
         assert repr(vtt_to_str.convert_content("What you got, a billion could've never bought (oooh)")) == repr(
             "What you got, a billion could've never bought (oooh)\n")
+
+    def test_convert_different_timestamp_formats(self):
+        vtt_to_str = VttToStr()
+        input_content = "00:03:08.500 --> 00:03:15.300\n03:08.500 --> 03:15.300\n08.500 --> 15.300\n"
+        expected_output = "00:03:08,500 --> 00:03:15,300\n00:03:08,500 --> 00:03:15,300\n00:00:08,500 --> 00:00:15,300\n"
+        assert repr(vtt_to_str.convert_content(input_content)) == repr(expected_output)
+
+    def test_convert_special_characters_symbols(self):
+        vtt_to_str = VttToStr()
+        input_content = "00:03:08.500 --> 00:03:15.300\n- Special characters: !@#$%^&*()\n"
+        expected_output = "1\n00:03:08,500 --> 00:03:15,300\n- Special characters: !@#$%^&*()\n"
+        assert repr(vtt_to_str.convert_content(input_content)) == repr(expected_output)
+
+    def test_convert_multiple_languages(self):
+        vtt_to_str = VttToStr()
+        input_content = "00:03:08.500 --> 00:03:15.300\n- English\n00:03:16.000 --> 00:03:20.000\n- 中文\n"
+        expected_output = "1\n00:03:08,500 --> 00:03:15,300\n- English\n2\n00:03:16,000 --> 00:03:20,000\n- 中文\n"
+        assert repr(vtt_to_str.convert_content(input_content)) == repr(expected_output)
+
+    def test_convert_overlapping_timestamps(self):
+        vtt_to_str = VttToStr()
+        input_content = "00:03:08.500 --> 00:03:15.300\n00:03:10.000 --> 00:03:12.000\n"
+        expected_output = "1\n00:03:08,500 --> 00:03:15,300\n2\n00:03:10,000 --> 00:03:12,000\n"
+        assert repr(vtt_to_str.convert_content(input_content)) == repr(expected_output)

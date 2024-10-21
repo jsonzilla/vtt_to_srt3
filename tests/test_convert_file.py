@@ -45,3 +45,34 @@ class TestConvertFile:
         assert equals_files("idd_format.srt",
                             "valid_output_idd_format.srt", "utf-8")
                             
+    def test_convert_file_different_timestamp_formats(self, clean_files):
+        """Test convert file with different timestamp formats"""
+        convert_file = ConvertFile(concat_path("input_different_timestamps.vtt"), "utf-8")
+        convert_file.convert()
+
+        assert equals_files("input_different_timestamps.srt",
+                            "valid_output_different_timestamps.srt", "utf-8")
+
+    def test_convert_file_special_characters_symbols(self, clean_files):
+        """Test convert file with special characters and symbols"""
+        convert_file = ConvertFile(concat_path("input_special_characters.vtt"), "utf-8")
+        convert_file.convert()
+
+        assert equals_files("input_special_characters.srt",
+                            "valid_output_special_characters.srt", "utf-8")
+
+    def test_convert_file_multiple_languages(self, clean_files):
+        """Test convert file with multiple languages"""
+        convert_file = ConvertFile(concat_path("input_multiple_languages.vtt"), "utf-8")
+        convert_file.convert()
+
+        assert equals_files("input_multiple_languages.srt",
+                            "valid_output_multiple_languages.srt", "utf-8")
+
+    def test_convert_file_overlapping_timestamps(self, clean_files):
+        """Test convert file with overlapping timestamps"""
+        convert_file = ConvertFile(concat_path("input_overlapping_timestamps.vtt"), "utf-8")
+        convert_file.convert()
+
+        assert equals_files("input_overlapping_timestamps.srt",
+                            "valid_output_overlapping_timestamps.srt", "utf-8")
