@@ -76,3 +76,11 @@ class TestConvertFile:
 
         assert equals_files("input_overlapping_timestamps.srt",
                             "valid_output_overlapping_timestamps.srt", "utf-8")
+
+    def test_convert_file_with_remove_format(self, clean_files):
+        """Test convert file with remove format option"""
+        convert_file = ConvertFile(concat_path("input_utf8.vtt"), "utf-8", True)
+        convert_file.convert()
+
+        assert equals_files("input_utf8.srt",
+                            "valid_output_utf8.srt", "utf-8")

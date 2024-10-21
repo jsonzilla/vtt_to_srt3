@@ -75,3 +75,9 @@ class TestVttToStr:
         input_content = "00:03:08.500 --> 00:03:15.300\n00:03:10.000 --> 00:03:12.000\n"
         expected_output = "1\n00:03:08,500 --> 00:03:15,300\n2\n00:03:10,000 --> 00:03:12,000\n"
         assert repr(vtt_to_str.convert_content(input_content)) == repr(expected_output)
+
+    def test_convert_content_with_remove_format(self):
+        vtt_to_str = VttToStr()
+        input_content = "WEBVTT\n00:03:08.500 --> 00:03:15.300\n<i>Formatted text</i>\n"
+        expected_output = "1\n00:03:08,500 --> 00:03:15,300\nFormatted text\n"
+        assert repr(vtt_to_str.convert_content(input_content, remove_format=True)) == repr(expected_output)

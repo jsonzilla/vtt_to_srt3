@@ -163,6 +163,10 @@ class VttToStr:
             print(f"file being read: {filename}\n")
             content = file.read()
 
+        if not content:
+            print(f"file is empty: {filename}\n")
+            return None
+
         return content
 
     def process(self, filename: str, remove_format : bool, encoding_format: str = "utf-8"):
@@ -172,6 +176,8 @@ class VttToStr:
         :encoding_format -- encoding format
         """
         file_contents: str = self.read_file(filename, encoding_format)
+        if file_contents is None:
+            return
         str_data: str = ""
         str_data = str_data + self.convert_content(file_contents, remove_format)
         filename = filename.replace(".vtt", ".srt")
